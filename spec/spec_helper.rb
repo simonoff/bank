@@ -1,11 +1,14 @@
-# -*- encoding: utf-8 -*-
-require 'rubygems'
-require 'bundler/setup'
+require 'simplecov'
+require 'coveralls'
 
-require 'minitest/autorun'
-require 'minitest/spec'
-begin; require 'turn/autorun'; rescue LoadError; end
-
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+SimpleCov.start do
+  add_filter 'spec'
+  minimum_coverage(76)
+end
 require 'active_model'
 require 'bank/iban'
 require 'bank/bic'

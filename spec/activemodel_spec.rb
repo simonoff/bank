@@ -22,30 +22,28 @@ class Person
   end
 end
 
-describe IbanValidator do
-  before {
-    @model = Company.new
-  }
+RSpec.describe IbanValidator do
+  let(:model) { ::Company.new }
 
   it 'should be valid' do
-    @model.iban = 'FR1420041010050500013M02606'
-    @model.valid?.must_equal true
+    model.iban = 'FR1420041010050500013M02606'
+    expect(model.valid?).to be_truthy
   end
 
   it 'should not be valid' do
-    @model.iban = 'FR1420041010050500013'
-    @model.valid?.must_equal false
-    @model.errors[:iban].must_include 'is invalid'
+    model.iban = 'FR1420041010050500013'
+    expect(model.valid?).to be_falsey
+    expect(model.errors[:iban]).to include 'is invalid'
   end
 
   it 'should not validate with nil value' do
-    @model.iban.must_equal nil
-    @model.valid?.must_equal false
+    expect(model.iban).to be_nil
+    expect(model.valid?).to be_falsey
   end
 
   it 'should not use the validator with option allow_nil: true' do
-    @person = Person.new
-    @person.iban.must_equal nil
-    @person.valid?.must_equal true
+    person = Person.new
+    expect(person.iban).to be_nil
+    expect(person.valid?).to be_truthy
   end
 end

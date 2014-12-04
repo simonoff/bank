@@ -1,5 +1,15 @@
 language: ruby
-rvm: 
-  - 2.1.0
+rvm:
   - 2.0.0
-  - 1.9.3
+  - 2.1
+  - ruby-head
+  - jruby-19mode # JRuby in 1.9 mode
+  - rbx-2
+gemfile:
+  - gemfiles/activemodel_4.0.gemfile
+  - gemfiles/activemodel_4.1.gemfile
+  - gemfiles/activemodel_4.2.gemfile
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+bundler_args: --without local_development

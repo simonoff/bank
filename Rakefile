@@ -1,19 +1,6 @@
 require 'bundler/gem_tasks'
-require 'rake/testtask'
+require 'rspec/core/rake_task'
 
-Rake::TestTask.new do |t|
-  t.pattern = 'spec/**/*_spec.rb'
-  t.libs << 'spec'
-end
+RSpec::Core::RakeTask.new(:spec)
 
-desc 'Run tests'
-task :default => :test
-
-desc 'Run console'
-task :console do
-  require 'irb'
-  require 'irb/completion'
-  require 'bank/contact'
-  ARGV.clear
-  IRB.start
-end
+task default: :spec
